@@ -14,7 +14,7 @@
 <!-- LOADING -->
 <div id="screen-loading" class="screen active">
   <div class="loading-screen">
-    <div style="font-size:48px;margin-bottom:12px">🏆</div>
+    <div style="font-size:52px;margin-bottom:12px">🏆</div>
     <div class="spinner"></div>
     <p>Loading…</p>
   </div>
@@ -24,8 +24,8 @@
 <div id="screen-login" class="screen">
   <div class="login-logo">🏆</div>
   <div class="login-title">World Cup <span>2026</span></div>
-  <div class="login-sub">Predictor — USA · Canada · Mexico</div>
-  <div class="login-host" id="league-name-display">Your league</div>
+  <div class="login-sub">USA · Canada · Mexico</div>
+  <div class="login-host">Predictor</div>
 
   <div class="login-box">
     <div class="login-tabs">
@@ -33,12 +33,10 @@
       <button class="login-tab" id="tab-signup" onclick="switchLoginTab('signup')">Create account</button>
     </div>
 
-    <!-- SIGN IN -->
     <div id="login-signin">
       <div class="form-field">
         <label>Username</label>
-        <input type="text" id="signin-username" placeholder="your username"
-          autocomplete="username" autocorrect="off" autocapitalize="none">
+        <input type="text" id="signin-username" placeholder="your username" autocomplete="username" autocorrect="off" autocapitalize="none">
       </div>
       <div class="pin-label">Enter PIN</div>
       <div class="pin-dots" id="signin-dots">
@@ -49,12 +47,10 @@
       <div class="pin-grid" id="signin-pad"></div>
     </div>
 
-    <!-- SIGN UP -->
     <div id="login-signup" style="display:none">
       <div class="form-field">
         <label>Choose a username</label>
-        <input type="text" id="signup-username" placeholder="e.g. jamie"
-          autocomplete="username" autocorrect="off" autocapitalize="none" maxlength="20">
+        <input type="text" id="signup-username" placeholder="e.g. jamie" autocomplete="username" autocorrect="off" autocapitalize="none" maxlength="20">
       </div>
       <div class="pin-label">Choose a PIN</div>
       <div class="pin-dots" id="signup-dots">
@@ -79,7 +75,7 @@
 <!-- APP -->
 <div id="screen-app" class="screen">
   <header class="app-header">
-    <div class="logo">WC <span>2026</span> Predictor</div>
+    <div class="logo">WC <span>2026</span></div>
     <div class="user-pill" onclick="toggleUserMenu()">
       <div class="user-avatar" id="user-avatar">?</div>
       <span id="user-display">Player</span>
@@ -96,47 +92,23 @@
     <button class="tab-btn" data-tab="league" onclick="showTab('league')">
       <span class="ti">🏆</span>League
     </button>
-    <button class="tab-btn" data-tab="history" onclick="showTab('history')">
-      <span class="ti">📊</span>History
-    </button>
-    <button class="tab-btn" data-tab="admin" id="tab-admin-btn" style="display:none" onclick="showTab('admin')">
+    <button class="tab-btn" id="tab-admin-btn" data-tab="admin" onclick="showTab('admin')" style="display:none">
       <span class="ti">⚙️</span>Admin
     </button>
   </nav>
 
-  <!-- Rounds -->
-  <div class="tab-content active" id="tab-rounds">
-    <div class="page">
-      <div class="card">
-        <div class="card-label">FIFA World Cup 2026</div>
-        <div id="rounds-grid"></div>
-        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:12px">
-          <span style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:var(--gold-dim);border:1px solid var(--gold);display:inline-block"></span>Open</span>
-          <span style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:rgba(255,152,0,.1);border:1px solid var(--amber);display:inline-block"></span>Live</span>
-          <span style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:var(--surface);border:1px solid var(--border);display:inline-block;opacity:.5"></span>Locked</span>
-        </div>
-      </div>
+  <div class="tab-content active" id="tab-rounds"></div>
+  <div class="tab-content" id="tab-groups"><div class="empty"><div class="spinner"></div></div></div>
+  <div class="tab-content" id="tab-league"><div class="empty"><div class="spinner"></div></div></div>
+  <div class="tab-content" id="tab-admin"><div class="empty"><div class="spinner"></div></div></div>
+
+  <!-- Fixed submit bar — always in DOM, shown/hidden by JS -->
+  <div class="submit-wrap" id="submit-wrap" style="display:none">
+    <div class="progress">
+      <div class="prog-label" id="prog-label">0 of 0 picked</div>
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
     </div>
-  </div>
-
-  <!-- Groups -->
-  <div class="tab-content" id="tab-groups">
-    <div class="empty"><div class="spinner"></div></div>
-  </div>
-
-  <!-- League -->
-  <div class="tab-content" id="tab-league">
-    <div class="empty"><div class="spinner"></div></div>
-  </div>
-
-  <!-- History -->
-  <div class="tab-content" id="tab-history">
-    <div class="empty"><div class="spinner"></div></div>
-  </div>
-
-  <!-- Admin -->
-  <div class="tab-content" id="tab-admin">
-    <div class="empty"><div class="spinner"></div></div>
+    <button class="btn" id="submit-btn" disabled>Submit picks</button>
   </div>
 </div>
 
@@ -145,8 +117,6 @@
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-<!-- App -->
 <script src="firebase-config.js"></script>
 <script src="fixtures.js"></script>
 <script src="auth.js"></script>
@@ -154,33 +124,28 @@
 <script src="app.js"></script>
 
 <script>
-// ── Firebase init ─────────────────────────────────────────────
 firebase.initializeApp(FIREBASE_CONFIG);
 window.wcDb = firebase.firestore();
 
-// ── PIN pad state ──────────────────────────────────────────────
+// ── PIN pad ───────────────────────────────────────────────────
 const padState = {
-  signin:  { pin: '' },
-  signup:  { pin: '', confirmed: '', phase: 'choose' },
+  signin: { pin:'' },
+  signup: { pin:'', confirmed:'', phase:'choose' },
 };
 
 function buildPad(containerId, onDigit, onDelete) {
   const grid = document.getElementById(containerId);
   if (!grid) return;
   grid.innerHTML = '';
-  const keys = [
-    ['1',''],['2','ABC'],['3','DEF'],
-    ['4','GHI'],['5','JKL'],['6','MNO'],
-    ['7','PQRS'],['8','TUV'],['9','WXYZ'],
-    [null,null],['0',''],['⌫',null]
-  ];
-  keys.forEach(([num, sub]) => {
+  [['1',''],['2','ABC'],['3','DEF'],
+   ['4','GHI'],['5','JKL'],['6','MNO'],
+   ['7','PQRS'],['8','TUV'],['9','WXYZ'],
+   [null,null],['0',''],['⌫',null]
+  ].forEach(([num, sub]) => {
     const btn = document.createElement('button');
     if (num === null) { btn.className = 'pin-key key-empty'; }
-    else if (num === '⌫') {
-      btn.className = 'pin-key key-del'; btn.textContent = '⌫';
-      btn.onclick = onDelete;
-    } else {
+    else if (num === '⌫') { btn.className = 'pin-key key-del'; btn.textContent = '⌫'; btn.onclick = onDelete; }
+    else {
       btn.className = 'pin-key';
       btn.innerHTML = `<span class="key-num">${num}</span>${sub?`<span class="key-sub">${sub}</span>`:''}`;
       btn.onclick = () => onDigit(num);
@@ -189,13 +154,12 @@ function buildPad(containerId, onDigit, onDelete) {
   });
 }
 
-function updateDots(id, pin, err = false) {
-  document.querySelectorAll(`#${id} .pin-dot`).forEach((dot, i) => {
-    dot.className = 'pin-dot' + (i < pin.length ? ' filled' : '') + (err ? ' error' : '');
+function updateDots(id, pin, err=false) {
+  document.querySelectorAll(`#${id} .pin-dot`).forEach((dot,i) => {
+    dot.className = 'pin-dot' + (i<pin.length?' filled':'') + (err?' error':'');
   });
 }
 
-// Sign in pad
 function siDigit(d) {
   if (padState.signin.pin.length >= 4) return;
   padState.signin.pin += d;
@@ -209,54 +173,47 @@ function siDelete() {
 }
 async function doSignin() {
   const username = document.getElementById('signin-username').value.trim();
-  const pin = padState.signin.pin;
   try {
-    await Auth.login(username, pin);
+    await Auth.login(username, padState.signin.pin);
     showScreen('loading');
     await initApp(Auth.getCurrentUser());
   } catch(e) {
     document.getElementById('signin-err').textContent = e.message;
-    updateDots('signin-dots', '', true);
-    setTimeout(() => { padState.signin.pin = ''; updateDots('signin-dots', ''); }, 600);
+    updateDots('signin-dots','',true);
+    setTimeout(()=>{ padState.signin.pin=''; updateDots('signin-dots',''); },600);
   }
 }
 
-// Sign up pad
 function suDigit(d) {
-  if (padState.signup.phase === 'choose') {
-    if (padState.signup.pin.length >= 4) return;
+  if (padState.signup.phase==='choose') {
+    if (padState.signup.pin.length>=4) return;
     padState.signup.pin += d;
     updateDots('signup-dots', padState.signup.pin);
-    if (padState.signup.pin.length === 4) {
-      setTimeout(() => {
-        document.getElementById('signup-confirm-wrap').style.display = 'block';
-        padState.signup.phase = 'confirm';
-      }, 120);
-    }
+    if (padState.signup.pin.length===4) setTimeout(()=>{ document.getElementById('signup-confirm-wrap').style.display='block'; padState.signup.phase='confirm'; },120);
   } else {
-    if (padState.signup.confirmed.length >= 4) return;
+    if (padState.signup.confirmed.length>=4) return;
     padState.signup.confirmed += d;
     updateDots('signup-dots2', padState.signup.confirmed);
-    if (padState.signup.confirmed.length === 4) setTimeout(doSignup, 120);
+    if (padState.signup.confirmed.length===4) setTimeout(doSignup,120);
   }
 }
 function suDelete() {
-  if (padState.signup.phase === 'confirm') {
+  if (padState.signup.phase==='confirm') {
     padState.signup.confirmed = padState.signup.confirmed.slice(0,-1);
     updateDots('signup-dots2', padState.signup.confirmed);
-    document.getElementById('signup-err2').textContent = '';
+    document.getElementById('signup-err2').textContent='';
   } else {
     padState.signup.pin = padState.signup.pin.slice(0,-1);
     updateDots('signup-dots', padState.signup.pin);
-    document.getElementById('signup-err').textContent = '';
+    document.getElementById('signup-err').textContent='';
   }
 }
 async function doSignup() {
   const username = document.getElementById('signup-username').value.trim();
   if (padState.signup.pin !== padState.signup.confirmed) {
-    document.getElementById('signup-err2').textContent = "PINs don't match — try again";
-    updateDots('signup-dots2', '', true);
-    setTimeout(() => { padState.signup.confirmed = ''; padState.signup.phase = 'choose'; updateDots('signup-dots2',''); document.getElementById('signup-confirm-wrap').style.display='none'; padState.signup.pin=''; updateDots('signup-dots',''); }, 700);
+    document.getElementById('signup-err2').textContent = "PINs don't match";
+    updateDots('signup-dots2','',true);
+    setTimeout(()=>{ padState.signup.confirmed=''; padState.signup.phase='choose'; updateDots('signup-dots2',''); document.getElementById('signup-confirm-wrap').style.display='none'; padState.signup.pin=''; updateDots('signup-dots',''); },700);
     return;
   }
   try {
@@ -265,9 +222,9 @@ async function doSignup() {
     await initApp(Auth.getCurrentUser());
   } catch(e) {
     document.getElementById('signup-err').textContent = e.message;
-    padState.signup.pin = ''; padState.signup.confirmed = ''; padState.signup.phase = 'choose';
+    padState.signup = { pin:'', confirmed:'', phase:'choose' };
     updateDots('signup-dots','');
-    document.getElementById('signup-confirm-wrap').style.display = 'none';
+    document.getElementById('signup-confirm-wrap').style.display='none';
   }
 }
 
@@ -276,11 +233,11 @@ function switchLoginTab(tab) {
   document.getElementById('login-signup').style.display = tab==='signup'?'block':'none';
   document.getElementById('tab-signin').classList.toggle('active', tab==='signin');
   document.getElementById('tab-signup').classList.toggle('active', tab==='signup');
-  padState.signin.pin = ''; padState.signup.pin = ''; padState.signup.confirmed = ''; padState.signup.phase = 'choose';
+  padState.signin.pin=''; padState.signup={pin:'',confirmed:'',phase:'choose'};
   updateDots('signin-dots',''); updateDots('signup-dots','');
-  document.getElementById('signup-confirm-wrap').style.display = 'none';
-  document.getElementById('signin-err').textContent = '';
-  document.getElementById('signup-err').textContent = '';
+  document.getElementById('signup-confirm-wrap').style.display='none';
+  document.getElementById('signin-err').textContent='';
+  document.getElementById('signup-err').textContent='';
 }
 
 function initLoginUI() {

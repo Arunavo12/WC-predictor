@@ -1,21 +1,17 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDo4t_yZMg-Y9R63lgRNLRyu6oEbDIbhZM",
-  authDomain: "wc-predictor-b63fe.firebaseapp.com",
-  projectId: "wc-predictor-b63fe",
-  storageBucket: "wc-predictor-b63fe.firebasestorage.app",
-  messagingSenderId: "271535923003",
-  appId: "1:271535923003:web:89d62c52cb3b80651fe11e",
-  measurementId: "G-RHXDLGVTF9"
+// ─────────────────────────────────────────────────────────────
+//  FILL IN YOUR FIREBASE CONFIG HERE
+//  Firebase Console → Project Settings → Your Apps → Web
+// ─────────────────────────────────────────────────────────────
+const FIREBASE_CONFIG = {
+  apiKey:            "YOUR_API_KEY",
+  authDomain:        "YOUR_PROJECT.firebaseapp.com",
+  projectId:         "YOUR_PROJECT_ID",
+  storageBucket:     "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId:             "YOUR_APP_ID"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// Your admin username — this account gets the Admin tab
+const ADMIN_USERNAME = "admin";
+
+const TOURNAMENT = "FIFA World Cup 2026";
